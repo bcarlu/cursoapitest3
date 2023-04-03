@@ -19,9 +19,10 @@ const createAndSavePerson = (done) => {
     favoriteFoods: ['Salchi papa', 'Pollo asado']
   })
   person.save(function(err, data) {
+    // if (err) return console.error(err);
+    // console.log("usuario creado: ", data)
     if (err) return console.error(err);
-    // done(null, data);
-    console.log("usuario creado: ", data)
+    done(null, data)
   });
 };
 
