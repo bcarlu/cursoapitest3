@@ -19,12 +19,20 @@ const createAndSavePerson = (done) => {
     favoriteFoods: ['Salchi papa', 'Pollo asado']
   })
   person.save(function(err, data) {
-    // if (err) return console.error(err);
-    // console.log("usuario creado: ", data)
     if (err) return console.error(err);
     done(null, data)
   });
+  /** Test */
+  // person.save(function(err, data) {
+  //   if (err) return console.error(err);
+  //   console.log("Persona creada con exito")
+  // });
+  /** End test */
 };
+
+/** Test */
+// createAndSavePerson();
+/** End test */
 
 const createManyPeople = (arrayOfPeople, done) => {
   Person.create(arrayOfPeople, function(err, data) {
@@ -56,9 +64,34 @@ const findPersonById = (personId, done) => {
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
-
-  done(null /*, data*/);
+  Person.findById({_id: personId}, function(err, data) {
+    if (err) return console.error(err);
+    
+    data.favoriteFoods.push(foodToAdd)    
+    let person = new Person(data)
+    
+    person.save(function(err, data) {
+      if (err) return console.error(err);
+      done(null, data)
+    });
+  });
+  /** Test */
+  // Person.findById({_id: "642ef9b2ade3be727078845e"}, function(err, data) {
+  //   if (err) return console.error(err);
+  //   console.log("La persona es: ", data)
+  //   if (data) {
+  //     data.favoriteFoods.push(foodToAdd)
+  //     console.log("Se añadio: ", data.favoriteFoods[data.favoriteFoods.length - 1] )
+  //     console.log("Nueva persona: ", data)
+  //   }
+  //   // done(null, data)
+  // });
+  /** End test */
 };
+
+/** Test */
+// findEditThenSave();
+/** End test */
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
