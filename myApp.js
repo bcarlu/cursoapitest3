@@ -118,9 +118,16 @@ const removeManyPeople = (done) => {
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
-
-  done(null /*, data*/);
+  Person.find({favoriteFoods: foodToSearch}).sort({name: "asc"}).limit(2).select("-age").exec(function(err, data) {
+    if (err) return console.error(err);
+    // console.log("Se encontraron los sgtes registros: ", data)
+    done(null, data)
+  })
 };
+
+/** Test */
+// queryChain()
+/** End test */
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
